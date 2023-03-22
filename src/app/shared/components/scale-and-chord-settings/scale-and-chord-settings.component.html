@@ -1,0 +1,149 @@
+<div class="scale-and-chord-settings" [formGroup]="form" *ngIf="formInit === true"
+    [class.open]="settings.visible === true">
+    <h2>Settings</h2>
+    <a (click)="settings.visible = false" class="btn-close"><i class="fas fa-times-circle"></i></a>
+    <div class="row">
+        <div class="col-12">
+            <h3><a (click)="sectionStringsOpen = !sectionStringsOpen">Strings <i class="fas fa-angle-down"
+                        *ngIf="sectionStringsOpen === false"></i><i class="fas fa-angle-up"
+                        *ngIf="sectionStringsOpen === true"></i></a></h3>
+        </div>
+    </div>
+    <div [hidden]="sectionStringsOpen === false">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field appearance="fill" class="full-width-field">
+                    <mat-label>Presets</mat-label>
+                    <mat-select formControlName="presets" (selectionChange)="handleStringPresetSelection($event)">
+                        <ng-container *ngFor="let preset of stringPresets">
+                            <mat-option [value]="preset">{{preset.name}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" *ngFor="let string of strings">
+                <mat-form-field appearance="fill" class="full-width-field">
+                    <mat-label>Str</mat-label>
+                    <mat-select [formControlName]="'string' + string">
+                        <mat-option [value]="null">None</mat-option>
+                        <mat-option *ngFor="let noteName of scaleNotes" [value]="noteName">{{noteName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3><a (click)="sectionFretboardOpen = !sectionFretboardOpen">Fretboard <i class="fas fa-angle-down"
+                        *ngIf="sectionFretboardOpen === false"></i><i class="fas fa-angle-up"
+                        *ngIf="sectionFretboardOpen === true"></i></a></h3>
+        </div>
+    </div>
+    <div [hidden]="sectionFretboardOpen === false">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field class="full-width-field">
+                    <mat-label>Number of Frets</mat-label>
+                    <input matInput type="number" formControlName="numFrets" (change)="handleFretboardChange()">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field class="full-width-field">
+                    <mat-label>Fret Range Low</mat-label>
+                    <input matInput type="number" formControlName="fretRangeLow" (change)="handleFretboardChange()">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field class="full-width-field">
+                    <mat-label>Fret Range High</mat-label>
+                    <input matInput type="number" formControlName="fretRangeHigh" (change)="handleFretboardChange()">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3><a (click)="sectionModeOpen = !sectionModeOpen">Mode <i class="fas fa-angle-down"
+                        *ngIf="sectionModeOpen === false"></i><i class="fas fa-angle-up"
+                        *ngIf="sectionModeOpen === true"></i></a></h3>
+        </div>
+    </div>
+
+    <div class="row mb-3" [hidden]="sectionModeOpen === false">
+        <div class="col-12">
+            <mat-radio-group (change)="handleModeChange($event)">
+                <mat-radio-button value="scale">
+                    Scale
+                </mat-radio-button>
+                <mat-radio-button value="chord-types">
+                    Chord Types
+                </mat-radio-button>
+                <mat-radio-button value="specific-chords">
+                    Chord Presets
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <ng-container>
+        <div class="row">
+            <div class="col-12">
+                <h3><a (click)="sectionPresetsOpen = !sectionPresetsOpen">Presets <i class="fas fa-angle-down"
+                            *ngIf="sectionPresetsOpen === false"></i><i class="fas fa-angle-up"
+                            *ngIf="sectionPresetsOpen === true"></i></a></h3>
+            </div>
+        </div>
+        <div class="row mb-3" [hidden]="sectionPresetsOpen === false">
+            <div class="col-12" *ngIf="mode !== 'specific-chords'">
+                <mat-form-field appearance="fill" class="full-width-field">
+                    <mat-label>Root Note</mat-label>
+                    <mat-select formControlName="root" (selectionChange)="handleNotesSelection()">
+                        <mat-option *ngFor="let noteName of scaleNotes" [value]="noteName">{{noteName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12" *ngIf="mode === 'scale'">
+                <mat-form-field appearance="fill" class="full-width-field">
+                    <mat-label>Scale</mat-label>
+                    <mat-select formControlName="scale" (selectionChange)="handleNotesSelection()">
+                        <mat-option *ngFor="let scale of scales" [value]="scale">{{scale.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12" *ngIf="mode === 'chord-types'">
+                <mat-form-field appearance="fill" class="full-width-field">
+                    <mat-label>Chord</mat-label>
+                    <mat-select formControlName="chord" (selectionChange)="handleNotesSelection()">
+                        <mat-option *ngFor="let chord of chords" [value]="chord">{{chord.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12" *ngIf="mode === 'specific-chords'">
+                <mat-form-field appearance="fill" class="full-width-field">
+                    <mat-label>Chord</mat-label>
+                    <mat-select formControlName="specificChords" (selectionChange)="handleSpecificChordPreset($event)">
+                        <mat-option *ngFor="let specificChord of specificChordPresets" [value]="specificChord">
+                            {{specificChord.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <ng-container *ngIf="mode !== 'specific-chords'">
+            <div class="row">
+                <div class="col-12">
+                    <h3><a (click)="sectionSelectedNotesOpen = !sectionSelectedNotesOpen">Selected Notes <i
+                                class="fas fa-angle-down" *ngIf="sectionSelectedNotesOpen === false"></i><i
+                                class="fas fa-angle-up" *ngIf="sectionSelectedNotesOpen === true"></i></a></h3>
+                </div>
+            </div>
+            <div class="row" [hidden]="sectionSelectedNotesOpen === false">
+                <div class="col-12">
+                    <mat-checkbox [formControlName]="'note' + i" *ngFor="let noteName of scaleNotes; let i = index;">
+                        {{noteName}}</mat-checkbox>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+
+</div>

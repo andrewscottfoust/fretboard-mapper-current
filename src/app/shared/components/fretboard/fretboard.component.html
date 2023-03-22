@@ -1,0 +1,58 @@
+<div class="row" [hidden]="addChordVisible === false">
+    <div class="col-md-3">
+        <mat-form-field class="full-width-field">
+            <mat-label>Chord Name</mat-label>
+            <input matInput type="text" [(ngModel)]="chordName" />
+        </mat-form-field>
+    </div>
+    <div class="col-md-3">
+        <mat-form-field class="full-width-field">
+            <mat-label>Root Name</mat-label>
+            <input matInput type="text" [(ngModel)]="rootName"/>
+        </mat-form-field>
+    </div>
+    <div class="col-md-3">
+        <button mat-raised-button color="primary" (click)="addChord()">Add Chord</button>
+    </div>
+    <div class="col-md-3">
+        <button mat-raised-button color="primary" (click)="resetChordSelections()">Reset</button>
+    </div>
+</div>
+<div class="fretboard mt-5">
+    <div class="fretboard-container">
+        <div class="fret-numbers">
+            <ng-container *ngFor="let fretNum of strings[0]; let i = index;">
+                <div class="fret-number" [style.width.%]="noteWidth">{{ i }}</div>
+            </ng-container>
+        </div>
+        <div class="fret-markers">
+            <ng-container *ngFor="let marker of fretMarkers">
+                <div class="fret-marker" [style.width.%]="noteWidth" [class.selected]="marker === true"></div>
+            </ng-container>
+        </div>
+        <div class="string" *ngFor="let string of strings; let i = index;">
+            <ng-container *ngFor="let note of string; let noteNum = index;">
+                <div class="note-item open" [style.width.%]="noteWidth" [class.selected]="note.value === 1"
+                    [ngClass]="note.value === 1 ? 'note-color-' + note.noteIdx : ''" [class.root]="note.root === 1"
+                    *ngIf="noteNum === 0" (click)="handleNoteToggle(i, noteNum, note.name)">
+                    {{ note.noteName }}
+                </div>
+                <div class="note-item" [style.width.%]="noteWidth" [class.selected]="note.value === 1"
+                    [ngClass]="note.value === 1 ? 'note-color-' + note.noteIdx : ''" [class.root]="note.root === 1"
+                    *ngIf="noteNum !== 0" (click)="handleNoteToggle(i, noteNum, note.name)">
+                    {{ note.noteName }}
+                </div>
+            </ng-container>
+        </div>
+        <div class="fret-markers">
+            <ng-container *ngFor="let marker of fretMarkers">
+                <div class="fret-marker" [style.width.%]="noteWidth" [class.selected]="marker === true"></div>
+            </ng-container>
+        </div>
+        <div class="fret-numbers">
+            <ng-container *ngFor="let fretNum of strings[0]; let i = index;">
+                <div class="fret-number bottom" [style.width.%]="noteWidth">{{ i }}</div>
+            </ng-container>
+        </div>
+    </div>
+</div>

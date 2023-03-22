@@ -1,0 +1,24 @@
+<div class="container-mapper">
+    <div class="row">
+        <div class="col-12">
+            <h1>Fretboard Mapper</h1>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <a (click)="scaleAndChordSettings.visible = true" class="btn-settings">Settings <i class="fas fa-cog"></i></a>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            <app-fretboard [settings]="settingsFretboard"></app-fretboard>
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-12">
+        <app-sample-player [settings]="settingsFretboard"></app-sample-player>
+    </div>
+</div>
+<app-scale-and-chord-settings [settings]="scaleAndChordSettings" (itemUpdated)="updateSettings($event, 'fretboard')">
+</app-scale-and-chord-settings>

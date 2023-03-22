@@ -1,0 +1,146 @@
+.fretboard {
+    padding: 5px;
+    background: rgb(92,59,24);
+    background: linear-gradient(0deg, rgba(92,59,24,1) 0%, rgba(60,44,9,1) 33%, rgba(60,44,9,1) 66%, rgba(92,59,24,1) 100%);
+    border-radius: 20px;
+    -webkit-box-shadow: 13px 10px 5px -1px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 13px 10px 5px -1px rgba(0, 0, 0, 0.26);
+    box-shadow: 13px 10px 5px -1px rgba(0, 0, 0, 0.26);
+
+    .fretboard-container {
+        width: 100%;
+        position: relative;
+
+        .fret-markers {
+            width: 100%;
+            content: "";
+            clear: both;
+            display: table;
+
+            .fret-marker {
+                height: 10px;
+                float: left;
+                margin: 2px 0px 2px 0px;
+                border-radius: 10px;
+
+                &.selected {
+                    background-color: #e8e8df;
+                }
+            }
+        }
+
+        .fret-numbers {
+            width: 100%;
+            content: "";
+            clear: both;
+            display: table;
+            .fret-number {
+                height: 0px;
+                float: left;
+                margin: 2px 0px 2px 0px;
+                color: #333333;
+                text-align: center;
+                position: relative;
+                top: -30px;
+                opacity: .3;
+                &.bottom {
+                    top: 10px;
+                }
+            }
+        }
+
+        .string {
+            width: 100%;
+            margin: 0px 0px 1px 0px;
+            content: "";
+            clear: both;
+            display: table;
+
+            .note-item {
+                height: 40px;
+                display: block;
+                float: left;
+                margin: 1px 0px 1px 0px;
+                padding: 9px 0px 0px 0px;
+                background-color: #27231f;
+                font-size: 12px;
+                line-height: 21px;
+                color: #999999;
+                text-align: center;
+                border-radius: 0px;
+                border: 1px solid #ffffff;
+                border-radius: 4px;
+                opacity: .5;
+
+                &.open {
+                    background-color: transparent;
+                    color: #ffffff;
+                    font-weight: 900;
+                    border-right: 10px solid #cccccc;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+
+                    /*&.selected {
+                        background-color: #c6fffb;
+                        color: #000000;
+                        opacity: 1;
+
+                        &.root {
+                            background-color: #ff4081;
+                            color: #ffffff;
+                        }
+                    }*/
+                }
+
+                &.selected {
+                    background-color: #c6fffb;
+                    color: #000000;
+                    font-weight: 900;
+                    opacity: 1;
+
+                    &.root {
+                        background-color: #ff4081;
+                        color: #ffffff;
+                    }
+                }
+                &.note-color-0 {
+                    background-color: #ffecce;
+                }
+                &.note-color-1 {
+                    background-color: #ffdca4;
+                }
+                &.note-color-2 {
+                    background-color: #fcf5ee;
+                }
+                &.note-color-3 {
+                    background-color: #ffdebd;
+                }
+                &.note-color-4 {
+                    background-color: #fffbf9;
+                }
+                &.note-color-5 {
+                    background-color: #fbe4e0;
+                }
+                &.note-color-6 {
+                    background-color: #ffc7bd;
+                }
+                &.note-color-7 {
+                    background-color: #fad5da;
+                }
+                &.note-color-8 {
+                    background-color: #faafb9;
+                }
+                &.note-color-9 {
+                    background-color: #d5cfeb;
+                }
+                &.note-color-10 {
+                    background-color: #b8aaec;
+                }
+                &.note-color-11 {
+                    background-color: #c6fffb;
+                }
+            }
+            
+        }
+    }
+}

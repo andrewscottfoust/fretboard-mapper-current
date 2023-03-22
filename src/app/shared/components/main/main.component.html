@@ -1,0 +1,91 @@
+<div class="main">
+
+    <h1>Fretboard Mapper</h1>
+
+    <div class="mode-selector">
+        <mat-radio-group aria-label="Select an mode" (change)="handleModeSelection($event)">
+            <mat-radio-button value="preset">Preset</mat-radio-button>
+            <mat-radio-button value="custom">Custom</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="note-selector" *ngIf="scaleMode === 'custom'">
+
+        <h3>Scale Notes</h3>
+
+        <div class="note-selector-item" *ngFor="let item of notes; let i = index;">
+            <mat-checkbox [checked]="item.value === 1 ? true : false" (change)="handleNoteSelection(i)"> {{ item.text }}</mat-checkbox>
+        </div>
+        <div class="note-selector-button-item">
+            <button mat-stroked-button color="primary" (click)="handleResetNoteSelections()">Reset Selections</button>
+        </div>
+        <div class="note-selector-button-item">
+            <button mat-stroked-button color="accent" (click)="handleRandomizeNoteSelections()">Randomize
+                Selections</button>
+        </div>
+    </div>
+
+    <div class="root-selector" *ngIf="scaleMode !== null">
+
+        <h3>Root Note</h3>
+
+        <mat-form-field appearance="fill">
+            <mat-select (selectionChange)="handleRootNoteSelection($event)" [value]="root">
+                <ng-container *ngFor="let rootNote of notes">
+                    <mat-option [value]="rootNote.text" *ngIf="rootNote.value === 1">{{rootNote.text}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="scale-selector" *ngIf="scaleMode === 'preset' && root !== null">
+        <mat-form-field appearance="fill">
+            <mat-label>Scale</mat-label>
+            <mat-select (selectionChange)="handleScaleSelection($event)">
+                <mat-option *ngFor="let scale of scales" [value]="scale">{{scale.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="play-sample" *ngIf="root !== null">
+
+        <h3>Play Sample</h3>
+
+        <button mat-button color="primary" (click)="playSample()">Play</button>
+    </div>
+
+    <div class="fretboard">
+        <div class="string-fields">
+            <div class="string-field" *ngFor="let string of strings; let i = index;">
+                <mat-form-field appearance="fill">
+                    <mat-select (selectionChange)="handleStringSelection($event, i)" [value]="string.name">
+                        <mat-option *ngFor="let note of noteNames" [value]="note">{{note}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="fret-markers">
+            <ng-container *ngFor="let marker of fretMarkers">
+                <div class="fret-marker" [class.selected]="marker === true"></div>
+            </ng-container>
+        </div>
+        <div class="string" *ngFor="let string of strings; let i = index;">
+            <ng-container *ngFor="let note of string.notes; let noteNum = index;">
+                <div class="note-item open" [class.selected]="note.value === 1" [class.root]="note.root === true"
+                    *ngIf="noteNum === 0">
+                    <ng-container *ngIf="note.value === 1">{{ note.text }}</ng-container>
+                </div>
+                <div class="note-item" [class.selected]="note.value === 1" [class.root]="note.root === 1"
+                    *ngIf="noteNum !== 0">
+                    <ng-container *ngIf="note.value === 1">{{ note.text }}</ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div class="fret-markers">
+            <ng-container *ngFor="let marker of fretMarkers">
+                <div class="fret-marker" [class.selected]="marker === true"></div>
+            </ng-container>
+        </div>
+    </div>
+
+</div>

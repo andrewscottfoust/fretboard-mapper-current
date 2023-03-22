@@ -1,0 +1,21 @@
+.container-mapper {
+    width: 100%;
+    padding: 20px;
+    .btn-settings {
+      z-index: 400;
+      cursor: pointer;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    h1 {
+        display: block;
+        width: 100%;
+        text-align: right;
+        padding: 30px;
+        color: rgb(255, 0, 0);
+        font-family: 'Audiowide', cursive;
+        font-size: 40px;
+    }
+    
+}

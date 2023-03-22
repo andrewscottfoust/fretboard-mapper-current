@@ -1,0 +1,50 @@
+.scale-and-chord-settings {
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    top: 0px;
+    left: -500px;
+    z-index: 200;
+    background-color: #ffffff;
+    -webkit-box-shadow: 13px 10px 5px -1px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 13px 10px 5px -1px rgba(0, 0, 0, 0.26);
+    box-shadow: 13px 10px 5px -1px rgba(0, 0, 0, 0.26);
+    border-right: 10px solid #2798cc;
+    overflow-y: auto;
+    
+    .btn-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        i {
+            font-size: 20px;
+            color: rgb(255, 0, 0);
+            cursor: pointer;
+        }
+    }
+    h2 {
+        font-family: 'Audiowide', cursive;
+        font-size: 22px;
+        color: #2798cc;
+    }
+    h3 {
+        a {
+            cursor: pointer;
+        }
+    }
+    .full-width-field {
+        width: 100%;
+    }
+    .mat-checkbox {
+        margin-right: 16px;
+    }
+    .mat-radio-button {
+        margin-right: 10px;
+    }
+    &.open {
+        left: 0px;
+    }
+}
